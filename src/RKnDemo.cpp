@@ -78,7 +78,7 @@ double f_vj(double x, const vector<double> &y, void *params=0){
   (void) x;
   Params *p = (Params*)params;
   return -p->air_k * sqrt(y[1]*y[1] + y[3]*y[3]) * y[3] / p->m - p->g;
-  // return g;    // if no air constant acceleration along -j direction: F/m = -g
+  // return -g;    // if no air constant acceleration along -j direction: F/m = -g
 }
 
 /// \brief Stopping condition
@@ -94,10 +94,10 @@ double f_stop(double x, const vector<double> &y, void *params=0){
 /// \brief Use RK4 method to describe simple projectile motion.
 int main(int argc, char **argv){
 
-  // setup parameters
+  // setup default parameters
   Params pars;
   pars.g=9.81;
-  pars.m=1.0;
+  pars.m=10.0;
   pars.air_k=0.1;
   void *p_par = (void*) &pars;
 
@@ -105,13 +105,19 @@ int main(int argc, char **argv){
   double v0=100;
   
   int c;
-  while ((c = getopt (argc, argv, "v:t:")) != -1)
+  while ((c = getopt (argc, argv, "v:t:m:k:")) != -1)
     switch (c) {
     case 'v':
       v0 = atof(optarg);
       break;
     case 't':
       theta = atof(optarg);
+      break;
+    case 'm':
+      pars.m = atof(optarg);
+      break;
+    case 'k':
+      pars.air_k = atof(optarg);
       break;
     case '?':
       fprintf (stderr, "Unknown option `%c'.\n", optopt);
@@ -133,25 +139,27 @@ int main(int argc, char **argv){
   v_fun[2]=f_rj;
   v_fun[3]=f_vj;
 
-  vector<double> y0(4);
+  vector<double> y(4);
   // initial conditions are starting position, velocity and angle, equivalently ri,rj,vi,vj
-  y0[0]=0;   // init position on i-axis
-  y0[1]=v0*cos(theta*3.14159/180);  // init velocity along i axis
-  y0[2]=0;   // repeat for j-axis
-  y0[3]=v0*sin(theta*3.14159/180);
+  y[0]=0;   // init position on i-axis
+  y[1]=v0*cos(theta*3.14159/180);  // init velocity along i axis
+  y[2]=0;   // repeat for j-axis
+  y[3]=v0*sin(theta*3.14159/180);
   cout << "Vinit: " << v0 << " m/s" << endl;
   cout << "Angle: " << theta << " deg" << endl;
-  cout << "(vx,vy) " << y0[1] << " , "  <<  y0[2] << endl;
+  cout << "(vx,vy) " << y[1] << " , "  <<  y[3] << " m/s" << endl;
 
   
   double x=0;           // t0
   double xmax=20;  // tmax
   int nsteps=200;
-  auto tgN = RK4SolveN(v_fun, y0, nsteps, x, xmax, p_par, f_stop);
+  auto tgN = RK4SolveN(v_fun, y, nsteps, x, xmax, p_par, f_stop);
   TCanvas *c2 = new TCanvas("c2","ODE solutions 2",dw,dh);
   tgN[2].Draw("al*");
   c2->Draw();
 
+  cout << "Final velocity = " << sqrt(y[1]*y[1]+y[3]*y[3]) << endl;
+  
   // save our graphs
   TFile *tf=new TFile("RKnDemo.root","recreate");
   for (unsigned i=0; i<v_fun.size(); i++){
