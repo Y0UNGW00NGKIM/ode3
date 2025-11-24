@@ -38,6 +38,8 @@ Energy conservation test (no air resistance)
   in vacuum case.
 
 For each mass in the scan, 
+
+```text
 (phys56xx) [bab6cw src]$ ./vterm
 m = 0.001 kg, v_t (numeric)  = 0.313209 m/s, v_t (analytic) = 0.313209 m/s
 m = 0.257385 kg, v_t (numeric)  = 5.02488 m/s, v_t (analytic) = 5.02488 m/s
@@ -79,19 +81,23 @@ m = 9.23085 kg, v_t (numeric)  = 30.0922 m/s, v_t (analytic) = 30.0923 m/s
 m = 9.48723 kg, v_t (numeric)  = 30.5072 m/s, v_t (analytic) = 30.5073 m/s
 m = 9.74362 kg, v_t (numeric)  = 30.9166 m/s, v_t (analytic) = 30.9168 m/s
 m = 10 kg, v_t (numeric)  = 31.3207 m/s, v_t (analytic) = 31.3209 m/s
+```
 I compared numerical and analytical terminal speed values across the given range, and also printed out the relative error vs mass graph.
 It can be clearly seen from the data printed by the code that they agree with maximum discrepancy being +-0.0002, so I would say that they are reasonably accurate.
 
 
 # Part B, Problem 1
 Result:
+```text
 ********************************
 (xend,z0,theta0) = (18.500000,1.400000,1.000000)
 v_pitch = 48.045273 m/s
 ********************************
+```
 
 
 # Part B, Problem 2
+```text
 (phys56xx) [bab6cw src]$ ./baseball2 -p 0 -n
 Setting up initial conditions for slider
 ********************************
@@ -120,4 +126,5 @@ Coordinates when x=60 feet
 (x,y,x) = (60.600000,-0.743629,-1.446410)
 (vx,vy,vz) = (38.468339,-0.959718,-2.631898)
 ********************************
+```
 
