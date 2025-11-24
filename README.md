@@ -1,5 +1,6 @@
-# ode 3
+# ode 3 - Youngwoong Kim, David, bab6cw
 
+# Part A
 Run make in ode 3 directory. Will produce executable named vterm in src directory.
 
 For energy conservation study, use ./vterm -E -n N where N is number of RK4 steps. For terminal velocity study, run ./vterm.
@@ -80,3 +81,43 @@ m = 9.74362 kg, v_t (numeric)  = 30.9166 m/s, v_t (analytic) = 30.9168 m/s
 m = 10 kg, v_t (numeric)  = 31.3207 m/s, v_t (analytic) = 31.3209 m/s
 I compared numerical and analytical terminal speed values across the given range, and also printed out the relative error vs mass graph.
 It can be clearly seen from the data printed by the code that they agree with maximum discrepancy being +-0.0002, so I would say that they are reasonably accurate.
+
+
+# Part B, Problem 1
+Result:
+********************************
+(xend,z0,theta0) = (18.500000,1.400000,1.000000)
+v_pitch = 48.045273 m/s
+********************************
+
+
+# Part B, Problem 2
+(phys56xx) [bab6cw src]$ ./baseball2 -p 0 -n
+Setting up initial conditions for slider
+********************************
+Coordinates when x=60 feet
+(x,y,x) = (60.600000,1.184033,-3.058531)
+(vx,vy,vz) = (33.634736,1.341951,-4.176797)
+********************************
+(phys56xx) [bab6cw src]$ ./baseball2 -p 1 -n
+Setting up initial conditions for curveball
+********************************
+Coordinates when x=60 feet
+(x,y,x) = (60.600000,0.837764,-3.899154)
+(vx,vy,vz) = (33.585066,0.948892,-5.127610)
+********************************
+(phys56xx) [bab6cw src]$ ./baseball2 -p 2 -n
+Setting up initial conditions for screwball
+********************************
+Coordinates when x=60 feet
+(x,y,x) = (60.600000,-0.837764,-3.899154)
+(vx,vy,vz) = (33.585066,-0.948892,-5.127610)
+********************************
+(phys56xx) [bab6cw src]$ ./baseball2 -p 3 -n
+Setting up initial conditions for fastball
+********************************
+Coordinates when x=60 feet
+(x,y,x) = (60.600000,-0.743629,-1.446410)
+(vx,vy,vz) = (38.468339,-0.959718,-2.631898)
+********************************
+
